@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diversity - Samadhan Kendra</title>
+    <link rel="stylesheet" href="diversity.css">
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background: #f9f9f9; */
+    background: url("static/diversity_bg.jpg") no-repeat center/cover;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #212224;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo a {
+    color: #f8f9fa;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+nav ul li a:hover {
+    color: #ffdd57;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform .3s;
+} 
+
+nav ul li a:hover::after{
+    transform-origin: left;
+    transform: scale(1);
+    
+}
+
+
+/* Diversity Section */
+.diversity {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.diversity h2 {
+    font-size: 70px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 5px;
+    color: #f2f5f8;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Cards Layout */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    width: 320px;
+    padding: 20px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.card p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Hover Effects */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.about-text {
+            font-size: 70px;
+            font-weight: bold;
+            margin-top: 50px;
+            margin-bottom: 5px;
+            color: #0056b3;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+footer {
+            background: #138808;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo"><a href="home">Samadhaan Kendra</a></div>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="register">Register/Login</a></li>
+                <li><a href="report">Report</a></li>
+                <li><a href="diversity">Diversity</a></li>
+                <!-- <li><a href="admin1">Admin</a></li> -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <!-- Diversity Section -->
+    <section class="diversity">
+        <h2 class="about-text">Diversity</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="static/transparency.png" alt="Transparency">
+                <h3>ACCOUNTABILITY AND TRANSPARENCY</h3>
+                <p>When community members report incomplete work, it holds authorities and contractors accountable...</p>
+            </div>
+
+            <div class="card">
+                <img src="static/infrastructure.webp" alt="Infrastructure">
+                <h3>INFRASTRUCTURE DEVELOPMENT</h3>
+                <p>Design infrastructure projects (roads, parks, public transportation) that cater to diverse populations...</p>
+            </div>
+
+            <div class="card">
+                <img src="static/accessibility.jpg" alt="Accessibility">
+                <h3>ACCESSIBLE</h3>
+                <p>The complaint reporting system allows residents to raise issues related to various government projects...</p>
+            </div>
+
+            <div class="card">
+                <img src="static/acknowledgment.webp" alt="Acknowledgment">
+                <h3>ACKNOWLEDGMENT</h3>
+                <p>It implies that we have received the report and are confirming it promptly...</p>
+            </div>
+
+            <div class="card">
+                <img src="static/engagement.jpg" alt="Engagement">
+                <h3>COMMUNITY ENGAGEMENT INITIATIVE</h3>
+                <p>We actively involve community members in decision-making through public consultations...</p>
+            </div>
+
+            <div class="card">
+                <img src="static/security.png" alt="Data Security">
+                <h3>DATA SECURITY</h3>
+                <p>Data security in online applications plays a vital role in fostering an inclusive digital environment...</p>
+            </div>
+        </div>
+    </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 JAN SEVA | सभी अधिकार सुरक्षित</p>
+    </footer>
+</body>
+</html>

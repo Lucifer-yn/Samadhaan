@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details Entry</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        } */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-image: url("static/administrative.jpg");
+        }
+
+        header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #212224;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo a {
+    color: #f8f9fa;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+nav ul li a:hover {
+    color: #ffdd57;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform .3s;
+} 
+
+nav ul li a:hover::after{
+    transform-origin: left;
+    transform: scale(1);
+    
+}
+        /* Main Content */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: #ffffffa4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-left: 33%;
+            padding-right: 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            padding-right:10px ;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            background: #138808;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="home">Samadhaan Kendra</a></div>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="register">Register/Login</a></li>
+                <li><a href="report">Report</a></li>
+                <li><a href="diversity">Diversity</a></li>
+                <!-- <li><a href="admin1">Admin</a></li> -->
+            </ul>
+        </nav>
+    </header>
+
+<main>
+    <div class="container">
+        <h2>Project Details Entry</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="work">Work</label>
+                <input type="text" id="work" name="work" required>
+            </div>
+
+            <div class="form-group">
+                <label for="start_date">Start Date</label>
+                <input type="date" id="start_date" name="start_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="">Select Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="completion_date">Completion Date</label>
+                <input type="date" id="completion_date" name="completion_date">
+            </div>
+
+            <div class="form-group">
+                <label for="fund_granted">Fund Granted (₹)</label>
+                <input type="number" id="fund_granted" name="fund_granted" required>
+            </div>
+
+            <div class="form-group">
+                <label for="estimate_file">Upload Estimate File</label>
+                <input type="file" id="estimate_file" name="estimate_file" accept=".pdf,.doc,.docx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="site_image">Upload Site Image</label>
+                <input type="file" id="site_image" name="site_image" accept="image/*" required>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 भारत सरकार | सभी अधिकार सुरक्षित</p>
+</footer>
+
+<script>
+    document.getElementById("projectForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form from submitting automatically
+
+        let location = document.getElementById("location").value.trim();
+        let work = document.getElementById("work").value.trim();
+        let startDate = document.getElementById("startDate").value;
+        let status = document.getElementById("status").value;
+        let fundGranted = document.getElementById("fundGranted").value;
+        let estimateFile = document.getElementById("estimateFile").files.length;
+        let siteImage = document.getElementById("siteImage").files.length;
+
+        if (location === "" || work === "" || startDate === "" || status === "" || fundGranted === "" || estimateFile === 0 || siteImage === 0) {
+            alert("Please fill all the required fields and upload files!");
+        } else {
+            alert("Form submitted successfully!");
+            this.submit(); // Submit form
+        }
+    });
+</script>
+
+</body>
+</html>

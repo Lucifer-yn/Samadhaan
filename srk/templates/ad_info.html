@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>administrative Listings</title>
+    <link rel="stylesheet" href="administrative_info.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-image: url("static/administrative.jpg");
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background: rgba(247, 238, 238, 0.623);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, .5);
+            max-height: 900px;
+            max-width: 100%; /*Set a fixed height */
+            overflow-y: auto; /* Enables vertical scrolling */
+            overflow-x: hidden; 
+        }
+        header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #212224;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo a {
+    color: #f8f9fa;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+nav ul li a:hover {
+    color: #ffdd57;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform .3s;
+} 
+
+nav ul li a:hover::after{
+    transform-origin: left;
+    transform: scale(1);
+    
+}
+        
+        h2 {
+            text-align: center;
+            color: black;
+        }
+
+        /* Filters */
+        .search-filters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-filters select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-filters select:hover{
+            transform: translateY(-5px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 10px 40px;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap; 
+        }
+
+        th {
+            background-color: #191a1c;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        tr {
+            background: #fff;
+            border-radius: 10px;
+            transition: 0.3s;
+            padding: 30px;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+            transform: translateY(-5px);
+        }
+
+        td {
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+
+tbody {
+    display: table-row-group;
+    max-height: 800px; /* Scrollable area */
+    overflow-y: auto;
+}
+
+        /* Internship Role + Logo */
+        .internship-role {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .internship-role img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .internship-row{
+            padding: 60px;
+        }
+
+        footer {
+            background: #138808;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="home">Samadhaan Kendra</a></div>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="register">Register/Login</a></li>
+                <li><a href="report">Report</a></li>
+                <li><a href="diversity">Diversity</a></li>
+                <!-- <li><a href="admin1">Admin</a></li> -->
+            </ul>
+        </nav>
+    </header>
+
+
+<div class="container">
+    <h2>Administrative Info.</h2>
+
+    <!-- Filters -->
+    <div class="search-filters">
+        <select id="roleFilter">
+            <option value="">State name</option>
+            <option value="Software Developer">Software Developer</option>
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Full-Stack Developer">Full-Stack Developer</option>
+            <option value="AI/ML Engineer">AI/ML Engineer</option>
+        </select>
+        <select id="locationFilter">
+            <option value="">District name</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="UK">UK</option>
+            <option value="Canada">Canada</option>
+        </select>
+
+        <select id="workHoursFilter">
+            <option value="">Panchayat</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+        </select>
+    </div>
+
+    <!-- Internship Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Gov. Projects</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Fund Granted</th>
+                <th>Estimation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.work }}</td>
+                <td>{{ project.start_date }}</td>
+                <td>{{ project.completion_date }}</td>
+                <td>{{ project.status }}</td>
+                <td>{{ project.fund_granted }}</td>
+                <td>
+                    {% if project.estimate_file %}
+                        <a href="{{ project.estimate_file.url }}" download>Download Estimate</a>
+                    {% else %}
+                        No estimate file uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center;">No projects available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <p>&copy; 2025 भारत सरकार | सभी अधिकार सुरक्षित</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const roleFilter = document.getElementById("roleFilter");
+        const locationFilter = document.getElementById("locationFilter");
+        const workHoursFilter = document.getElementById("workHoursFilter");
+        const internshipRows = document.querySelectorAll(".internship-row");
+
+        function filterInternships() {
+            const role = roleFilter.value.toLowerCase();
+            const loc = locationFilter.value.toLowerCase();
+            const hours = workHoursFilter.value.toLowerCase();
+
+            internshipRows.forEach(row => {
+                const internshipRole = row.getAttribute("data-role").toLowerCase();
+                const location = row.getAttribute("data-location").toLowerCase();
+                const workHours = row.getAttribute("data-hours").toLowerCase();
+
+                // Show the row only if all selected filters match
+                row.style.display = 
+                    (role === "" || internshipRole === role) &&
+                    (loc === "" || location === loc) &&
+                    (hours === "" || workHours === hours)
+                    ? "table-row" : "none";
+            });
+        }
+
+        roleFilter.addEventListener("change", filterInternships);
+        locationFilter.addEventListener("change", filterInternships);
+        workHoursFilter.addEventListener("change", filterInternships);
+    });
+</script>
+</body>
+</html>

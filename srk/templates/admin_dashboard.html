@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Samadhan Kendra</title>
+    <link rel="stylesheet" href="admin_dashboard.css">
+    <style>
+        /* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    background-image: url("static/administrative.jpg");
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #212224;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo a {
+    color: #f8f9fa;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+nav ul li a:hover {
+    color: #ffdd57;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform .3s;
+} 
+
+nav ul li a:hover::after{
+    transform-origin: left;
+    transform: scale(1);
+    
+}
+/* Admin Info Section */
+.admin-info {
+    display: flex;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    margin: 20px;
+}
+
+.admin-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.admin-details {
+    display: flex;
+    justify-content: space-between;  /* Distributes items evenly */
+    gap: 20px; /* Adds spacing between elements */
+    align-items: center;
+    margin-left: 100px;
+}
+
+.admin-details p {
+    margin: 0;
+    padding: 5px 10px;
+    background: #f5f5f5; /* Light background */
+    border-radius: 5px;
+}
+
+/* Filters Section */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #fff;
+    margin: 20px;
+}
+
+.filters select, .filters input {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Data Table */
+.data-table {
+    width: 95%;
+    margin: auto;
+    background: #fff;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: blue;
+    color: white;
+}
+
+/* Edit Button */
+.edit-btn {
+    background: orange;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.add-project-btn {
+        display: block;
+        margin: 30px auto; /* Centers the button */
+        padding: 12px 25px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .add-project-btn:hover {
+        background: #218838;
+    }
+    
+    .profile-pic {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px; /* Adjust spacing */
+        }
+
+        .profile-pic img {
+            width: 125px;  /* Adjust size */
+            height: 125px;
+            border-radius: 50%; /* Makes it circular */
+            object-fit: cover; /* Ensures the image is cropped correctly */
+            border: 4px solid rgb(58, 56, 56); /* Optional: Adds a border */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Optional: Adds a shadow */
+        }
+</style>
+
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="home">Samadhaan Kendra</a></div>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="register">Register/Login</a></li>
+                <li><a href="report">Report</a></li>
+                <li><a href="diversity">Diversity</a></li>
+                <li><a href="{% url 'admin_logout' %}">Admin-logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Admin Information Section -->
+    <section class="admin-info">
+        <div class="profile-pic">
+            <label for="profilePic">
+                {% load static %} 
+                <img src="{% static 'default_profile.jpg' %}" alt="Default Profile Picture" width="100">
+            </label>
+            <input type="file" name="profile_picture" id="profilePic" style="display: none;" onchange="this.form.submit()">
+        </div>
+        <h2>{{ admin_user.full_name }}</h2>
+        <!-- <div class="admin-card">
+            <img src="admin-profile.png" alt="Admin Profile">
+            <h2>{{ admin_user.full_name }}</h2> 
+        </div> -->
+        <div class="admin-details">
+            <p><strong>Application ID:</strong> {{ admin_user.application_id }}</p>
+            <p><strong>Post:</strong> {{ admin_user.post }}</p>
+            <p><strong>Posted Area:</strong> {{ admin_user.posted_area }}</p>
+        </div>
+    </section>
+
+    <!-- Search and Filters -->
+    <section class="filters">
+        <input type="text" id="search" placeholder="Search...">
+        <select id="assignedTo">
+            <option>Assigned To</option>
+        </select>
+        <select id="location">
+            <option>Location</option>
+        </select>
+        <select id="date">
+            <option>By Date</option>
+        </select>
+        <button class="back-btn">🔙 Back</button>
+    </section>
+
+    <button class="add-project-btn" onclick="redirectToProjectDetail()">➕ Add New Project</button>
+    <!-- Data Table Section -->
+    <section class="data-table">
+        <table border="1">
+            <tr>
+                <th>S. No.</th>
+                <th>Location</th>
+                <th>Work</th>
+                <th>Start Date</th>
+                <th>Completion Date</th>
+                <th>Status</th>
+                <th>Fund Granted</th>
+                <th>Estimate Upload</th>
+                <th>Picture Upload</th>
+                <th>Actions</th>
+            </tr>
+        
+            {% for project in projects %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ project.location }}</td>
+                <td>{{ project.work }}</td>
+                <td>{{ project.start_date|default:"Not provided" }}</td>
+                <td>{{ project.completion_date|default:"N/A" }}</td>
+                <td>{{ project.status }}</td>
+                <td>₹{{ project.fund_granted|default:"None" }}</td>
+                
+                <td>
+                    {% if project.estimate_file %}
+                        <a href="{{ project.estimate_file.url }}" download>Download Estimate</a>
+                    {% else %}
+                        No estimate file uploaded
+                    {% endif %}
+                </td>
+        
+                <td>
+                    {% if project.site_image %}
+                        <img src="{{ project.site_image.url }}" alt="Site Image" width="100">
+                    {% else %}
+                        No site image uploaded
+                    {% endif %}
+                </td>
+        
+                <td>
+                    <a href="{% url 'edit_project' project.id %}"><button>Edit</button></a>
+                    <a href="{% url 'delete_project' project.id %}" onclick="return confirm('Are you sure you want to delete this project?');">
+                        <button style="background-color: red; color: white;">Delete</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <script>
+        // Enable Row Editing
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        let row = this.closest('tr');
+        let cells = row.querySelectorAll('td:not(:last-child)');
+
+        cells.forEach((cell, index) => {
+            if (index > 1 && index < 6) { // Editable fields (Work, Dates, Status)
+                let input = document.createElement('input');
+                input.type = "text";
+                input.value = cell.innerText;
+                cell.innerHTML = "";
+                cell.appendChild(input);
+            }
+        });
+
+        this.innerText = "Save";
+        this.classList.add('save-btn');
+        this.classList.remove('edit-btn');
+
+        // Save Data
+        this.addEventListener('click', function () {
+            cells.forEach(cell => {
+                let input = cell.querySelector('input');
+                if (input) {
+                    cell.innerText = input.value;
+                }
+            });
+
+            this.innerText = "Edit";
+            this.classList.add('edit-btn');
+            this.classList.remove('save-btn');
+        });
+    });
+});
+
+// Search Functionality
+document.getElementById('search').addEventListener('input', function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll('#tableBody tr');
+
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(filter) ? "" : "none";
+    });
+});
+
+// Back Button Functionality
+document.querySelector('.back-btn').addEventListener('click', () => {
+    window.history.back();
+});
+
+// Redirect to Project Detail Page
+function redirectToProjectDetail() {
+            window.location.href = "project_detail";
+        }
+    </script>
+</body>
+</html>

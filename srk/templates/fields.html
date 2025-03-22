@@ -1,0 +1,319 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Circular Layout</title>
+    <link rel="stylesheet" href="fields.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Central Black Circle (Replace with an Image if needed) */
+        .center-circle {
+            position: absolute;
+            width: 430px;
+            height: 430px;
+            background-color: black;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Small images arranged in a circular pattern */
+        .image-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover; /* Ensures images fit properly */
+        }
+
+        /* Image positions matching the original circle layout */
+        .image-circle:nth-child(1) { bottom: 220px; left: 370px; }  
+        .image-circle:nth-child(2) { bottom: 400px; left: 50%; transform: translateX(-50%); }  
+        .image-circle:nth-child(3) { top: 220px; left: 370px;  }  
+        .image-circle:nth-child(4) { bottom: 220px; right: 370px; }  
+        .image-circle:nth-child(5) { top: 220px; right: 370px;}  
+        .image-circle:nth-child(6) { top: 400px; left: 50%; transform: translateX(-50%); }  
+    </style>
+</head>
+<body>
+
+<main>
+<div class="container">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 1">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 2">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 3">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 4">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 5">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 6">
+    <div class="center-circle"></div>
+</div>
+</main>
+</body>
+</html> --> 
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Circular Layout</title>
+    <link rel="stylesheet" href="fields.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+        }
+
+        /* Central Circle */
+        .center-circle {
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            background-color: black;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            transition: background 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        .center-circle img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .center-circle .text {
+            position: absolute;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Small images */
+        .image-circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Image positions */
+        .image-circle:nth-child(1) { bottom: 250px; left: 100px; }  
+        .image-circle:nth-child(2) { bottom: 450px; left: 50%; transform: translateX(-50%); }  
+        .image-circle:nth-child(3) { top: 250px; left: 100px; }  
+        .image-circle:nth-child(4) { bottom: 250px; right: 100px; }  
+        .image-circle:nth-child(5) { top: 250px; right: 100px; }  
+        .image-circle:nth-child(6) { top: 450px; left: 50%; transform: translateX(-50%); }  
+
+        /* Hover Effect */
+        .image-circle:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="center-circle">
+        <div class="text">Hover on an image</div>
+        <img id="centerImage" src="" alt="Centered Image">
+    </div>
+    <img src="static/workers.jpg" class="image-circle" alt="Image 1" data-text="Worker 1">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 2" data-text="Worker 2">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 3" data-text="Worker 3">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 4" data-text="Worker 4">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 5" data-text="Worker 5">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 6" data-text="Worker 6">
+</div>
+
+<script>
+    document.querySelectorAll('.image-circle').forEach(image => {
+        image.addEventListener('mouseover', function() {
+            let centerImage = document.getElementById('centerImage');
+            let centerText = document.querySelector('.center-circle .text');
+
+            centerImage.src = this.src;  
+            centerImage.style.opacity = "1"; 
+            centerText.innerText = this.getAttribute('data-text'); 
+            centerText.style.opacity = "0";  
+        });
+
+        image.addEventListener('mouseout', function() {
+            let centerImage = document.getElementById('centerImage');
+            let centerText = document.querySelector('.center-circle .text');
+
+            centerImage.style.opacity = "0"; 
+            centerText.style.opacity = "1"; 
+            centerText.innerText = "Hover on an image"; 
+        });
+    });
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Circular Layout</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+        }
+
+        /* Central Circle */
+        .center-circle {
+            position: absolute;
+            width: 430px;
+            height: 430px;
+            background-color: black;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            transition: background 0.5s ease-in-out;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .center-circle img {
+            width: 80%;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .center-circle .text {
+            margin-top: 10px;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Small images */
+        .image-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Image positions */
+        .image-circle:nth-child(1) { bottom: 220px; left: 370px; }  
+        .image-circle:nth-child(2) { bottom: 400px; left: 50%; }  
+        .image-circle:nth-child(3) { top: 220px; left: 370px;  }  
+        .image-circle:nth-child(4) { bottom: 220px; right: 370px; }  
+        .image-circle:nth-child(5) { top: 220px; right: 370px;}  
+        .image-circle:nth-child(6) { top: 400px; left: 50%;  }  
+
+        /* Hover Effect */
+        .image-circle:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="center-circle">
+        <img id="centerImage" src="" alt="Centered Image">
+        <div class="text">Hover on an image</div>
+    </div>
+    <img src="static/workers.jpg" class="image-circle" alt="Image 1" data-text="Worker 1">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 2" data-text="Worker 2">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 3" data-text="Worker 3">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 4" data-text="Worker 4">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 5" data-text="Worker 5">
+    <img src="static/workers.jpg" class="image-circle" alt="Image 6" data-text="Worker 6">
+</div>
+
+<script>
+    document.querySelectorAll('.image-circle').forEach(image => {
+        image.addEventListener('mouseover', function() {
+            let centerImage = document.getElementById('centerImage');
+            let centerText = document.querySelector('.center-circle .text');
+
+            centerImage.src = this.src;  
+            centerImage.style.opacity = "1";  
+            centerText.innerText = this.getAttribute('data-text'); 
+            centerText.style.opacity = "1";  
+        });
+
+        image.addEventListener('mouseout', function() {
+            let centerImage = document.getElementById('centerImage');
+            let centerText = document.querySelector('.center-circle .text');
+
+            centerImage.style.opacity = "0";  
+            centerText.style.opacity = "1";  
+            centerText.innerText = "Hover on an image";  
+        });
+    });
+</script>
+
+</body>
+</html>

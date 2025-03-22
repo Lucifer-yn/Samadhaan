@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Portal</title>
+        <link rel="stylesheet" href="registration.css">
+    </head>
+    <style>
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+} */
+
+body {
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background:url("static/admin_bg.avif") no-repeat; 
+    background-position: center;
+    background-size: cover;
+        }
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    background:url("static/register_bg.webp") no-repeat;   
+    background-size: cover;
+    background-position: center;
+}
+ 
+        /* header {
+            position: fixed;
+            display: flex;
+            top: 0;
+            width: 100%;
+            /* padding: 15px 100px; */
+            /* background:  #212224 ; */
+            /* justify-content: space-between; */
+            /* align-items: center;
+            z-index: 99;
+        }  */
+        header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #212224;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo a {
+    color: #f8f9fa;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+nav ul li a:hover {
+    color: #ffdd57;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform .3s;
+} 
+
+nav ul li a:hover::after{
+    transform-origin: left;
+    transform: scale(1);
+    
+}
+.wrapper{
+    position: relative;
+    width: 400px;
+    height: auto;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(13px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 38%;
+}
+
+.wrapper .form-box{
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box h2{
+    font-size: 2em;
+    color: black;
+    text-align: center;
+}
+
+.input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid black;
+    margin: 30px 0;
+    }
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: black;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label{
+    top: -5px;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: black;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: black;
+    line-height: 56px;   
+}
+
+.remember-forgot{
+    font-size: .9em;
+    color: black;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input{
+    accent-color: black;
+    margin-right: 3px;
+}
+
+.remember-forgot a{
+    color: black;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+.btn{
+    /* margin-left: 15%; */
+    width: 60%;
+    height: 45px;
+    background: black;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}
+
+.login-register{
+    font-size: .9em;
+    color: black;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px ;
+}
+
+.login-register p a{
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+.login-register p a:hover{
+    text-decoration: underline;
+}
+ 
+.lo{
+    text-decoration: none;
+    color: #fff;
+}
+
+
+.toggle-password {
+    position: absolute;
+    top: 18px;
+    right: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    background: none;
+    border: none;
+}
+
+.toggle-password:hover {
+    color: #000;
+}
+
+.messages {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .message {
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+    .message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    footer {
+        background: #138808;
+        color: white;
+        padding: 10px;
+        margin-top: 20px;
+    }
+</style>
+    <body>
+        
+        <header>
+            <div class="logo"><a href="home">Samadhaan Kendra</a></div>
+            <nav>
+                <ul>
+                    <li><a href="home">Home</a></li>
+                    <li><a href="register">Register/Login</a></li>
+                    <li><a href="report">Report</a></li>
+                    <li><a href="diversity">Diversity</a></li>
+                    <!-- <li><a href="admin1">Admin</a></li> -->
+                </ul>
+            </nav>
+        </header>
+    <main>
+        <div class="wrapper">
+            <span class="icon-close"></span>
+            <div class="form-box login">
+                {% block content %}
+                <h2>Admin Login</h2>
+                <!-- Display Messages -->
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <form action="{% url 'admin_login' %}" method="post" onsubmit="return validatePassword()">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="person"></ion-icon></span>  
+                        <input type="text" id="username" name="username" required>
+                        <label for="username">Full Name</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="person"></ion-icon></span>  
+                        <input type="text" id="application_id" name="application_id" required>
+                        <label for="application_id">Application ID:</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email</label>    
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="key"></ion-icon></span>
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                        <span class="toggle-password" onclick="togglePassword('password', 'eye1')">
+                            <ion-icon id="eye1" name="eye-off"></ion-icon>
+                        </span>
+                    </div>
+                    <button type="submit" class="btn">login</button>
+                    <div class="login-register">
+                        <p>Not registered <a href="admin_register" class="register-link">Registration</a></p>
+                    </div>
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 भारत सरकार | सभी अधिकार सुरक्षित</p>
+    </footer>
+    <script>
+        function showAlert() {
+            alert('सेवाओं की सूची जल्द ही उपलब्ध होगी!');
+        }
+    </script>
+
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script>
+            function togglePassword(fieldId, eyeId) {
+                let field = document.getElementById(fieldId);
+                let eyeIcon = document.getElementById(eyeId);
+                if (field.type === "password") {
+                    field.type = "text";
+                    eyeIcon.setAttribute("name", "eye");
+                } else {
+                    field.type = "password";
+                    eyeIcon.setAttribute("name", "eye-off");
+                }
+            }
+    
+            function validatePassword() {
+                let password = document.getElementById("password").value;
+                let confirmPassword = document.getElementById("confirm_password").value;
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match!");
+                    return false;
+                }
+                window.location.href = "report.html"; // Redirect to report area
+                return true;
+            }
+        </script>
+    </body>
+
+</html>

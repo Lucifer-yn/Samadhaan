@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samadhaan Kendra - Report Issue</title>
+    <link rel="stylesheet" href="report.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+
+/* General Styles */
+body {
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background:url("static/register_bg.webp") no-repeat; 
+    background-position: center;
+    background-size: cover;
+    /* background-color: rgb(126, 126, 236); */
+    }
+    header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #212224;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo a {
+    color: #f8f9fa;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+nav ul li a:hover {
+    color: #ffdd57;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform .3s;
+} 
+
+nav ul li a:hover::after{
+    transform-origin: left;
+    transform: scale(1);
+    
+}
+
+.report-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background: rgba(43, 123, 227, 0.692);
+    box-shadow: 0 4px 30px rgba(8, 8, 8, 0.365);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: black;
+}
+
+h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: black;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: 400;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    background: rgba(231, 229, 229, 0.548);
+    color: rgb(11, 11, 11);
+    transition: 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(63, 60, 60, 0.7);
+}
+
+input:focus, select:focus, textarea:focus {
+    background: rgba(230, 248, 253, 0.886);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row div {
+    width: 48%;
+}
+
+input[type="file"] {
+    background: transparent;
+    border: none;
+    padding: 5px;
+}
+
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: linear-gradient(45deg, #FFD700, #FF8C00);
+    color: black;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #FF8C00, #FFD700);
+}
+.btn1 {
+    background-color: #007BFF; /* Primary blue color */
+    color: white; /* White text */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn1:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn1:active {
+    transform: scale(0.98); /* Slight press effect */
+}
+
+#locationStatus {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #28a745; /* Green color for success */
+    font-weight: bold;
+}
+footer {
+    text-align: center;
+    padding: 15px;
+    background: rgba(0, 128, 0, 0.9);
+    color: white;
+
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+    
+    .row div {
+        width: 100%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div class="logo"><a href="home">Samadhaan Kendra</a></div>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="register">Register/Login</a></li>
+                <li><a href="report">Report</a></li>
+                <li><a href="diversity">Diversity</a></li>
+                <!-- <li><a href="admin1">Admin</a></li> -->
+            </ul>
+        </nav>
+    </header>
+    <!-- Report Form -->
+    <section class="report-container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h2>Report an Issue</h2>
+        <form action="{% url 'report' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <label>Full Name</label>
+            <input type="text" name="full_name" placeholder="Enter your full name" required>
+        
+            <label>Contact No.</label>
+            <input type="tel" name="contact_no" placeholder="Enter your contact number" required>
+        
+            <label>Address</label>
+            <input type="text" name="address" placeholder="Enter your address" required>
+        
+            <div class="row">
+                <div>
+                    <label for="state">State:</label>
+                    <select id="state" name="state" required>
+                        <option value="">Select State</option>
+                        {% for state in states %}
+                            <option value="{{ state }}">{{ state }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="district">District:</label>
+                    <select id="district" name="district" required>
+                        <option value="">Select District</option>
+                    </select>
+                </div>
+            </div>
+        
+            <label>Reported Location</label>
+            <input type="text" name="reported_location" placeholder="Enter reported location" required>
+        
+            <label>Field of Report</label>
+            <select name="field_of_report" required>
+                <option value="" disabled selected>Select category</option>
+                <option value="transport">Transport service & functionality</option>
+                <option value="electricity">Electric supply & outages</option>
+                <option value="water">Water system overflow</option>
+                <option value="road">Road Construction & maintenance</option>
+                <option value="infrastructure">Infrastructure & development</option>
+            </select>
+        
+            <label>Upload Location Image</label>
+            <input type="file" name="location_image" accept="image/*">
+
+            <div id="map" style="height: 400px; width: 100%; margin-top: 10px;"></div>
+            <input type="text" id="latitude" name="latitude" placeholder="Latitude" readonly>
+            <input type="text" id="longitude" name="longitude" placeholder="Longitude" readonly>
+
+            <label>Describe Your Issue</label>
+            <textarea name="description" placeholder="Describe the issue in detail" required></textarea>
+        
+            <button type="submit">Submit Report</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 JAN SEVA | सभी अधिकार सुरक्षित</p>
+    </footer>
+<script>
+    const stateDistricts = {
+        "Andhra Pradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Kadapa", "Krishna"],
+        "Bihar": ["Araria", "Begusarai", "Bhagalpur", "Darbhanga", "Gaya", "Patna"],
+        "Maharashtra": ["Ahmednagar", "Aurangabad", "Mumbai", "Nagpur", "Pune", "Thane"],
+        "Madhya Pradesh": ["Bhopal", "Raisen", "Sehore", "Ujjain", "Indore", "Narmadapuram"],
+        "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem", "Tiruchirappalli"],
+    };
+
+    // Function to sort the dictionary alphabetically
+    function sortStateDistricts() {
+        const sortedStates = Object.keys(stateDistricts).sort();
+        sortedStates.forEach(state => {
+            stateDistricts[state] = stateDistricts[state].sort();
+        });
+    }
+
+    sortStateDistricts(); // Sort states and districts alphabetically
+
+    document.getElementById("state").addEventListener("change", function() {
+        let stateSelected = this.value;
+        let districtDropdown = document.getElementById("district");
+        districtDropdown.innerHTML = "<option value=''>Select District</option>"; // Reset dropdown
+
+        if (stateSelected in stateDistricts) {
+            stateDistricts[stateSelected].forEach(district => {
+                let option = document.createElement("option");
+                option.value = district;
+                option.textContent = district;
+                districtDropdown.appendChild(option);
+            });
+        }
+    });
+</script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script>
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add a draggable marker
+    var marker = L.marker([20.5937, 78.9629], { draggable: true }).addTo(map);
+
+    // Function to update coordinates in input fields
+    function updateCoordinates(lat, lng) {
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+    }
+
+    // Event listener for marker drag
+    marker.on('dragend', function (e) {
+        var position = marker.getLatLng();
+        updateCoordinates(position.lat, position.lng);
+    });
+
+    // Click event to place marker on map
+    map.on('click', function (e) {
+        marker.setLatLng(e.latlng);
+        updateCoordinates(e.latlng.lat, e.latlng.lng);
+    });
+
+    // Add search bar for location lookup
+    L.Control.geocoder().addTo(map);
+</script>
+
+</body>
+</html>
